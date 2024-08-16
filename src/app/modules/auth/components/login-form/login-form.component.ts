@@ -8,12 +8,13 @@ import { RequestStatus } from '@models/request-status.model';
 
 @Component({
   selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
+  templateUrl: './login-form.component.html'
 })
 export class LoginFormComponent {
+
   form = this.formBuilder.nonNullable.group({
-    email: ['nicolas@mail.com', [Validators.email, Validators.required]],
-    password: ['changeme', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', [ Validators.required, Validators.minLength(6)]],
   });
   faPen = faPen;
   faEye = faEye;
@@ -27,29 +28,31 @@ export class LoginFormComponent {
     private authService: AuthService,
     private route: ActivatedRoute
   ) {
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.subscribe(params => {
       const email = params.get('email');
       if (email) {
         this.form.controls.email.setValue(email);
       }
-    });
+    })
   }
 
   doLogin() {
     if (this.form.valid) {
       this.status = 'loading';
       const { email, password } = this.form.getRawValue();
-      this.authService.login(email, password).subscribe({
+      this.authService.login(email, password)
+      .subscribe({
         next: () => {
           this.status = 'success';
           this.router.navigate(['/app']);
         },
         error: () => {
           this.status = 'failed';
-        },
+        }
       });
     } else {
       this.form.markAllAsTouched();
     }
   }
+
 }

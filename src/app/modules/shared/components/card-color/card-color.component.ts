@@ -1,19 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { COLORS, Colors } from '@models/colors.model';
+import { Colors, COLORS } from '@models/colors.model';
 
 @Component({
   selector: 'app-card-color',
-  templateUrl: './card-color.component.html',
+  templateUrl: './card-color.component.html'
 })
 export class CardColorComponent {
+
   @Input() color: Colors = 'sky';
 
   mapColors = COLORS;
 
-  constructor() {}
+  constructor() { }
 
   get colors() {
-    const colors = this.mapColors[this.color];
-    return colors ? colors : {};
+    const classes = this.mapColors[this.color];
+    return classes ? classes : {};
   }
+
 }

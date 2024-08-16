@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -11,8 +12,13 @@ import { BoardsComponent } from './pages/boards/boards.component';
 import { BoardComponent } from './pages/board/board.component';
 import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.component';
 
+
 @NgModule({
-  declarations: [BoardsComponent, BoardComponent, TodoDialogComponent],
+  declarations: [
+    BoardsComponent,
+    BoardComponent,
+    TodoDialogComponent
+  ],
   imports: [
     CommonModule,
     BoardsRoutingModule,
@@ -21,6 +27,7 @@ import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.compon
     CdkAccordionModule,
     DialogModule,
     FontAwesomeModule,
-  ],
+    ReactiveFormsModule
+  ]
 })
-export class BoardsModule {}
+export class BoardsModule { }
