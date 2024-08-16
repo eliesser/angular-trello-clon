@@ -32,15 +32,14 @@ import { BACKGROUNDS } from '@models/colors.model';
   ],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-
   board: Board | null = null;
   inputCard = new FormControl<string>('', {
     nonNullable: true,
-    validators: [Validators.required]
+    validators: [Validators.required],
   });
   inputList = new FormControl<string>('', {
     nonNullable: true,
-    validators: [Validators.required]
+    validators: [Validators.required],
   });
   showListForm = false;
   colorBackgrounds = BACKGROUNDS;
@@ -50,16 +49,16 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private boardsService: BoardsService,
     private cardsService: CardsService,
-    private listsService: ListsService,
+    private listsService: ListsService
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id = params.get('boardId');
       if (id) {
         this.getBoard(id);
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -82,7 +81,10 @@ export class BoardComponent implements OnInit, OnDestroy {
       );
     }
     // after
-    const position = this.boardsService.getPosition(event.container.data, event.currentIndex);
+    const position = this.boardsService.getPosition(
+      event.container.data,
+      event.currentIndex
+    );
     const card = event.container.data[event.currentIndex];
     const listId = event.container.id;
     this.updateCard(card, position, listId);
@@ -90,20 +92,21 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   addList() {
     const title = this.inputList.value;
-    if (this.board) {
-      this.listsService.create({
-        title,
-        boardId: this.board.id,
-        position: this.boardsService.getPositionNewItem(this.board.lists)
-      })
-      .subscribe(list => {
-        this.board?.lists.push({
-          ...list,
-          cards: [],
+    if (this.board && title.length) {
+      this.listsService
+        .create({
+          title,
+          boardId: this.board.id,
+          position: this.boardsService.getPositionNewItem(this.board.lists),
+        })
+        .subscribe((list) => {
+          this.board?.lists.push({
+            ...list,
+            cards: [],
+          });
+          this.showListForm = false;
+          this.inputList.setValue('');
         });
-        this.showListForm = false;
-        this.inputList.setValue('');
-      })
     }
   }
 
@@ -123,50 +126,52 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   private getBoard(id: string) {
-    this.boardsService.getBoard(id)
-    .subscribe(board => {
+    this.boardsService.getBoard(id).subscribe((board) => {
       this.board = board;
       this.boardsService.setBackgroundColor(this.board.backgroundColor);
     });
   }
 
   private updateCard(card: Card, position: number, listId: string | number) {
-    this.cardsService.update(card.id, { position, listId })
-    .subscribe((cardUpdated) => {
-      console.log(cardUpdated);
-    })
+    this.cardsService
+      .update(card.id, { position, listId })
+      .subscribe((cardUpdated) => {
+        console.log(cardUpdated);
+      });
   }
 
   openFormCard(list: List) {
     if (this.board?.lists) {
-      this.board.lists = this.board.lists.map(iteratorList => {
+      this.board.lists = this.board.lists.map((iteratorList) => {
         if (iteratorList.id === list.id) {
           return {
             ...iteratorList,
             showCardForm: true,
-          }
+          };
         }
         return {
           ...iteratorList,
           showCardForm: false,
-        }
+        };
       });
     }
   }
 
   createCard(list: List) {
     const title = this.inputCard.value;
-    if (this.board) {
-      this.cardsService.create({
-        title,
-        listId: list.id,
-        boardId: this.board.id,
-        position: this.boardsService.getPositionNewItem(list.cards),
-      }).subscribe(card => {
-        list.cards.push(card);
-        this.inputCard.setValue('');
-        list.showCardForm = false;
-      })
+    if (this.board && title.length) {
+      this.cardsService
+        .create({
+          title,
+          listId: list.id,
+          boardId: this.board.id,
+          position: this.boardsService.getPositionNewItem(list.cards),
+        })
+        .subscribe((card) => {
+          list.cards.push(card);
+          this.inputCard.setValue('');
+          list.showCardForm = false;
+        });
     }
   }
 

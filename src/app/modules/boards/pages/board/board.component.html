@@ -19,10 +19,10 @@
             {{ card.title }} - {{ card.position }}
           </div>
         </div>
-        <div class="mt-5">
+        <div class="mt-2">
           <app-btn *ngIf="!list.showCardForm" color="light" (click)="openFormCard(list)">Add a card</app-btn>
           <div class="w-full" *ngIf="list.showCardForm">
-            <textarea [formControl]="inputCard" class="w-full"></textarea>
+            <textarea [formControl]="inputCard" class="w-full bg-white shadow rounded border-b"></textarea>
             <div class="flex space-x-2 justify-between">
               <app-btn color="success" (click)="createCard(list)">Create</app-btn>
               <app-btn color="light" (click)="closeCardForm(list)">Close</app-btn>
@@ -33,7 +33,7 @@
       <div class="shrink-0">
         <app-btn *ngIf="!showListForm" color="light" (click)="showListForm = !showListForm">Add another list</app-btn>
         <div class="w-full" *ngIf="showListForm">
-          <textarea [formControl]="inputList" class="w-full"></textarea>
+          <textarea [formControl]="inputList" class="w-full bg-white shadow rounded border-b"></textarea>
           <div class="flex space-x-2 justify-between">
             <app-btn color="success" (click)="addList()">Create</app-btn>
             <app-btn color="light" (click)="showListForm = !showListForm">Close</app-btn>
