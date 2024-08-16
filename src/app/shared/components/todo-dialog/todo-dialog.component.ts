@@ -43,7 +43,7 @@ export class TodoDialogComponent {
 
   todo!: ToDo;
 
-  private dialogRef = inject(DialogRef);
+  private dialogRef = inject(DialogRef<OutputData>);
   private data: InputData = inject(DIALOG_DATA);
 
   constructor() {
