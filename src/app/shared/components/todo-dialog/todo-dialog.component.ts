@@ -1,6 +1,6 @@
 // Angular imports
-import { Component, inject } from '@angular/core';
-import { DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { Component, Inject, inject } from '@angular/core';
+import { DIALOG_DATA, DialogModule, DialogRef } from '@angular/cdk/dialog';
 
 // Third party imports
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -16,6 +16,15 @@ import {
 
 // Project imports
 import { BtnComponent } from '..';
+import { ToDo } from '../../../core/models/todo.model';
+
+interface InputData {
+  todo: ToDo;
+}
+
+interface OutputData {
+  rta: boolean;
+}
 
 @Component({
   selector: 'app-todo-dialog',
@@ -32,9 +41,20 @@ export class TodoDialogComponent {
   faCheckSquare = faCheckSquare;
   faClock = faClock;
 
+  todo!: ToDo;
+
   private dialogRef = inject(DialogRef);
+  private data: InputData = inject(DIALOG_DATA);
+
+  constructor() {
+    this.todo = this.data.todo;
+  }
 
   close() {
     this.dialogRef.close();
+  }
+
+  closeWithRta(rta: boolean) {
+    this.dialogRef.close({ rta });
   }
 }
