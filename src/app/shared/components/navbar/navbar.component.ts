@@ -13,4 +13,5 @@ import { BtnComponent } from '../btn/btn.component';
 })
 export class NavbarComponent {
   isOpen = false;
+  isOpenBody = false;
 }
