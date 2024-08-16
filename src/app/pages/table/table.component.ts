@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 // Project imports
 import { Product } from '../../core/models';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-table',
@@ -15,7 +16,8 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 })
 export class TableComponent {
   products: Product[] = [];
-  columns: string[] = ['cover', '#No', 'Name', 'price'];
+  columns: string[] = ['#No', 'Name', 'price', 'cover'];
+  total: number = 0;
 
   private http = inject(HttpClient);
 
@@ -24,6 +26,10 @@ export class TableComponent {
       .get<Product[]>('https://api.escuelajs.co/api/v1/products')
       .subscribe((data) => {
         this.products = data;
+
+        this.total = this.products
+          .map((product) => product.price)
+          .reduce((price, total) => price + total, 0);
       });
   }
 }
