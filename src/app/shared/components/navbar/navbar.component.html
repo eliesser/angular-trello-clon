@@ -10,7 +10,7 @@
         />
       </a>
       <div class="flex items-center">
-        <ul class="flex items-center space-x-8 text-sm font-medium">
+        <ul class="flex items-center space-x-2 text-sm font-medium">
           <li>
             <a class="block py-3 px-4 text-white">Workspaces</a>
           </li>
@@ -18,7 +18,7 @@
             <a class="block py-3 px-4 text-white">Recent</a>
           </li>
           <li>
-            <app-btn typeBtn="button">Create</app-btn>
+            <app-btn typeBtn="button" color="sky">Create</app-btn>
           </li>
         </ul>
       </div>
@@ -40,7 +40,11 @@
           cdkOverlayOrigin
           #menuOverlay="cdkOverlayOrigin"
         >
-          <img class="w-8 h-8 rounded-full" src="" alt="user photo" />
+          <img
+            class="w-8 h-8 rounded-full"
+            src=""
+            alt="user photo"
+          />
         </button>
       </div>
     </div>
@@ -51,6 +55,7 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="menuOverlay"
   [cdkConnectedOverlayOpen]="isOpen"
+  (overlayOutsideClick)="isOpen = !isOpen"
 >
   <div
     class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
@@ -62,10 +67,14 @@
       </button>
     </div>
     <div class="py-3 px-4 flex items-center space-x-4">
-      <img class="w-10 h-10 rounded-full" src="" alt="" />
+      <img
+        class="w-10 h-10 rounded-full"
+        src=""
+        alt=""
+      />
       <div class="space-y-1">
         <div>Jese Leos</div>
-        <div class="text-sm text-gray-500">{{ "nico@gmail.com" }}</div>
+        <div class="text-sm text-gray-500">{{'nico@gmail.com'}}</div>
       </div>
     </div>
     <ul class="py-1">
