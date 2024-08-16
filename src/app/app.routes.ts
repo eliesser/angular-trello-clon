@@ -2,9 +2,12 @@
 import { Routes } from '@angular/router';
 
 // Project imports
-import { LoginComponent } from './pages/login/login.component';
-import { BoardsComponent } from './pages/boards/boards.component';
-import { BoardComponent } from './pages/board/board.component';
+import {
+  LoginComponent,
+  BoardsComponent,
+  BoardComponent,
+  ScrollComponent,
+} from './pages';
 
 export const routes: Routes = [
   {
@@ -18,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'board',
     component: BoardComponent,
+  },
+  {
+    path: 'scroll',
+    component: ScrollComponent,
   },
 ];
