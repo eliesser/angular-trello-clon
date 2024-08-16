@@ -7,6 +7,7 @@ import {
   BoardsComponent,
   BoardComponent,
   ScrollComponent,
+  TableComponent,
 } from './pages';
 
 export const routes: Routes = [
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'scroll',
     component: ScrollComponent,
+  },
+  {
+    path: 'table',
+    component: TableComponent,
   },
 ];
