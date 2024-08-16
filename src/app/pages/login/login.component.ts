@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 
 // Project imports
-import { BtnComponent } from '../../shared/components/btn/btn.component';
+import { BtnComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-login',

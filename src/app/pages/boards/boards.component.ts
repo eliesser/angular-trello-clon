@@ -1,5 +1,6 @@
 // Angular imports
 import { Component } from '@angular/core';
+import { NgFor } from '@angular/common';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 // Third party imports
@@ -18,8 +19,7 @@ import {
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 
 // Project imports
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
-import { NgFor } from '@angular/common';
+import { NavbarComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-boards',

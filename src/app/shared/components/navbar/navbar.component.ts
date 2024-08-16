@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // Project imports
-import { BtnComponent } from '../btn/btn.component';
+import { BtnComponent } from '..';
 
 @Component({
   selector: 'app-navbar',

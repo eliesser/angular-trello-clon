@@ -1,5 +1,5 @@
 // Angular imports
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import {
   CdkDragDrop,
@@ -7,10 +7,11 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { Dialog } from '@angular/cdk/dialog';
 
 // Project imports
-import { ToDo } from '../../core/models/todo.model';
-import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { Column, ToDo } from '../../core/models/todo.model';
+import { NavbarComponent, TodoDialogComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-board',
@@ -32,30 +33,45 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
   ],
 })
 export class BoardComponent {
-  todos: ToDo[] = [
+  columns: Column[] = [
     {
-      id: '1',
-      title: 'Make dishes',
+      title: 'ToDo',
+      todos: [
+        {
+          id: '1',
+          title: 'Make dishes',
+        },
+        {
+          id: '2',
+          title: 'Buy a unicorn',
+        },
+      ],
     },
     {
-      id: '2',
-      title: 'Buy a unicorn',
+      title: 'Doing',
+      todos: [
+        {
+          id: '3',
+          title: 'Watch Angular Path in Platzi',
+        },
+      ],
+    },
+    {
+      title: 'Done',
+      todos: [
+        {
+          id: '4',
+          title: 'Play video games',
+        },
+      ],
     },
   ];
 
-  doing: ToDo[] = [
-    {
-      id: '3',
-      title: 'Watch Angular Path in Platzi',
-    },
-  ];
+  todos: ToDo[] = [];
+  doing: ToDo[] = [];
+  done: ToDo[] = [];
 
-  done: ToDo[] = [
-    {
-      id: '4',
-      title: 'Play video games',
-    },
-  ];
+  private dialog = inject(Dialog);
 
   drop(event: CdkDragDrop<ToDo[]>) {
     if (event.previousContainer === event.container) {
@@ -72,5 +88,19 @@ export class BoardComponent {
         event.currentIndex
       );
     }
+  }
+
+  addColumn() {
+    this.columns.push({
+      title: 'New Column',
+      todos: [],
+    });
+  }
+
+  openDialog() {
+    this.dialog.open(TodoDialogComponent, {
+      minWidth: '300px',
+      maxWidth: '50%',
+    });
   }
 }
